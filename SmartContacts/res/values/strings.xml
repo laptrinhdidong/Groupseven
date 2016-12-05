@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Smart Contacts</string>
+    <string name="keypab">Keypad</string>
+    <string name="history">History</string>
+    <string name="contacts">Contacts</string>
+    <string name="del">x</string>
+    <string name="keypad">Keypad</string>
+    <string name="add">+</string>
+    <string name="buttonlogin">Sign In</string>
+    <string name="labeladdnew">Add new</string>
+    <string name="cancel">Cancel</string>
+	<string name="save">Save</string>
+</resources>

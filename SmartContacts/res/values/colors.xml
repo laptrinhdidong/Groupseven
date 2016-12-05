@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="tabbackground">#00C853</color>
+    <color name="borderbottom">#2196F3</color>
+    <color name="colorwhite">#ffffff</color>
+    <color name="colorred">#F44336</color>
+</resources>

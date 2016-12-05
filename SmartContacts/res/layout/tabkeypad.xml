@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:id="@+id/lltextNumber"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal" >
+            <EditText
+                android:id="@+id/txtNumberKey"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="5"
+                android:background="@null"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:editable="false"
+                android:gravity="center"
+                android:longClickable="true"
+                android:text=""
+                android:textSize="@dimen/sizeNumber" />
+            <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+            <Button
+                android:id="@+id/btnadd"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/circle"
+                android:text="@string/add"
+                android:layout_margin="@dimen/marginbtn"
+                android:textColor="@color/colorwhite"
+                android:textSize="12sp" />
+            <Button
+                android:id="@+id/btndel"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="@dimen/marginbtn"
+                android:background="@drawable/circlered"
+                android:textColor="@color/colorwhite"
+                android:text="@string/del"
+                android:textSize="12sp"/>
+            </LinearLayout>
+			
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lnkey"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/marginbtn"
+            android:layout_marginRight="@dimen/marginbtn"
+            android:layout_marginBottom="@dimen/marginbtn"
+            android:layout_weight="2.5"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/line1"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btn1"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:text="1"
+                    android:textSize="@dimen/sizebutton" />
+
+                <Button
+                    android:id="@+id/btn2"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:text="2"
+                    android:textSize="@dimen/sizebutton" />
+
+                <Button
+                    android:id="@+id/btn3"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:text="3"
+                    android:textSize="@dimen/sizebutton" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line2"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btn4"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:text="4"
+                    android:textSize="@dimen/sizebutton" />
+
+                <Button
+                    android:id="@+id/btn5"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:text="5"
+                    android:textSize="@dimen/sizebutton" />
+
+                <Button
+                    android:id="@+id/btn6"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:text="6"
+                    android:textSize="@dimen/sizebutton" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line3"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btn7"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:text="7"
+                    android:textSize="@dimen/sizebutton" />
+
+                <Button
+                    android:id="@+id/btn8"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:text="8"
+                    android:textSize="@dimen/sizebutton" />
+
+                <Button
+                    android:id="@+id/btn9"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="1"
+                    android:background="@drawable/border"
+                    android:text="9"
+                    android:textSize="@dimen/sizebutton" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line4"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btnsao"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="3.3333"
+                    android:background="@drawable/border"
+                    android:text="*"
+                    android:textSize="@dimen/sizebutton" />
+
+                <Button
+                    android:id="@+id/btn0"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="3.3333"
+                    android:background="@drawable/border"
+                    android:text="0"
+                    android:textSize="@dimen/sizebutton" />
+
+                <Button
+                    android:id="@+id/btnthang"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="@dimen/marginbtn"
+                    android:layout_weight="3.3333"
+                    android:background="@drawable/border"
+                    android:text="#"
+                    android:textSize="@dimen/sizebutton" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/line5"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.7"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/btncall"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:background="@color/tabbackground"
+                    android:layout_weight="1"
+                    android:text="CALL" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
