@@ -35,7 +35,7 @@ public class tabcontacts extends Fragment implements OnItemClickListener{
 		getData();
 		
 		ListView lv = (ListView)view.findViewById(R.id.listViewContacts);
-		com.nhom7.adapter.ListContactsAdapter adapter = new com.nhom7.adapter.ListContactsAdapter(this, arrName, arrNuber, arrImage);
+		com.nhom7.adapter.ListContactsAdapter adapter = new com.nhom7.adapter.ListContactsAdapter(this, arrName, arrNuber);
 		lv.setAdapter(adapter);
 
 		lv.setOnItemClickListener(new OnItemClickListener() {

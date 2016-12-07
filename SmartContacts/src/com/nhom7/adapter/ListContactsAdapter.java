@@ -31,12 +31,12 @@ public class ListContactsAdapter extends BaseAdapter {
 	private static LayoutInflater inflater = null;
 
 	public ListContactsAdapter(tabcontacts tabcontacts, ArrayList<String> arrName,
-			ArrayList<String> arrNumber, ArrayList<String> arrImage) {
+			ArrayList<String> arrNumber){
 		// TODO Auto-generated constructor stub
 		name = arrName;
 		number = arrNumber;
 		context = tabcontacts;
-		image = arrImage;
+//		image = arrImage;
 		inflater = (LayoutInflater) context
 				.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -73,10 +73,10 @@ public class ListContactsAdapter extends BaseAdapter {
 		rowView = inflater.inflate(R.layout.listcontacts, null);
 		holder.tvn = (TextView) rowView.findViewById(R.id.textName);
 		holder.tvp = (TextView) rowView.findViewById(R.id.textNumber);
-		holder.img = (TextView) rowView.findViewById(R.id.textimg);
+//		holder.img = (TextView) rowView.findViewById(R.id.textimg);
 		holder.tvn.setText(name.get(position));
 		holder.tvp.setText(number.get(position));
-		holder.img.setText(image.get(position));
+//		holder.img.setText(image.get(position));
 		rowView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

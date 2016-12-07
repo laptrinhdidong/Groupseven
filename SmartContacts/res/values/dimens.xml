@@ -3,6 +3,10 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="tabtextsize">30sp</dimen>
     
+    <dimen name="sizeitem">48dp</dimen>
+    
+    <dimen name="sizebuttonbottom">40sp</dimen>
+    
     <dimen name="heighttab">60dp</dimen>
     
     <dimen name="margin_item">15dp</dimen>
