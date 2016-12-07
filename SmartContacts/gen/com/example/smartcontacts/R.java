@@ -11,10 +11,10 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int borderbottom=0x7f040001;
-        public static final int colorred=0x7f040003;
-        public static final int colorwhite=0x7f040002;
-        public static final int tabbackground=0x7f040000;
+        public static final int borderbottom=0x7f050001;
+        public static final int colorred=0x7f050003;
+        public static final int colorwhite=0x7f050002;
+        public static final int tabbackground=0x7f050000;
     }
     public static final class dimen {
         /** 
@@ -23,16 +23,16 @@ public final class R {
          would include 7" and 10" devices in landscape (~960dp and ~1280dp respectively).
     
          */
-        public static final int activity_horizontal_margin=0x7f050007;
-        public static final int heighttab=0x7f050001;
-        public static final int margin_item=0x7f050002;
-        public static final int marginbtn=0x7f050003;
-        public static final int paddigndedittext=0x7f050004;
-        public static final int sizeNumber=0x7f050006;
-        public static final int sizebutton=0x7f050005;
+        public static final int activity_horizontal_margin=0x7f060007;
+        public static final int heighttab=0x7f060001;
+        public static final int margin_item=0x7f060002;
+        public static final int marginbtn=0x7f060003;
+        public static final int paddigndedittext=0x7f060004;
+        public static final int sizeNumber=0x7f060006;
+        public static final int sizebutton=0x7f060005;
         /**  Default screen margins, per the Android Design guidelines. 
          */
-        public static final int tabtextsize=0x7f050000;
+        public static final int tabtextsize=0x7f060000;
     }
     public static final class drawable {
         public static final int border=0x7f020000;
@@ -42,61 +42,64 @@ public final class R {
         public static final int contact=0x7f020004;
         public static final int contacticon=0x7f020005;
         public static final int ic_launcher=0x7f020006;
-        public static final int icon1=0x7f020007;
-        public static final int iconui=0x7f020008;
-        public static final int refrech=0x7f020009;
+        public static final int iclauncherweb=0x7f020007;
+        public static final int icon1=0x7f020008;
+        public static final int iconui=0x7f020009;
+        public static final int refrech=0x7f02000a;
+        public static final int search=0x7f02000b;
     }
     public static final class id {
-        public static final int btn0=0x7f09002b;
-        public static final int btn1=0x7f09001e;
-        public static final int btn2=0x7f09001f;
-        public static final int btn3=0x7f090020;
-        public static final int btn4=0x7f090022;
-        public static final int btn5=0x7f090023;
-        public static final int btn6=0x7f090024;
-        public static final int btn7=0x7f090026;
-        public static final int btn8=0x7f090027;
-        public static final int btn9=0x7f090028;
-        public static final int btnAddtosmart=0x7f09000d;
-        public static final int btnCancel=0x7f090003;
-        public static final int btnDeleteContact=0x7f09000c;
-        public static final int btnEditContact=0x7f09000b;
-        public static final int btnInfoCall=0x7f090009;
-        public static final int btnInfoMsg=0x7f090008;
-        public static final int btnSave=0x7f090004;
-        public static final int btnShow=0x7f09002f;
-        public static final int btnadd=0x7f09001a;
-        public static final int btncall=0x7f09002e;
-        public static final int btndel=0x7f09001b;
-        public static final int btnlogin=0x7f090013;
-        public static final int btnsao=0x7f09002a;
-        public static final int btnthang=0x7f09002c;
-        public static final int imageContact=0x7f09000e;
-        public static final int imgcontact=0x7f090005;
-        public static final int line1=0x7f09001d;
-        public static final int line2=0x7f090021;
-        public static final int line3=0x7f090025;
-        public static final int line4=0x7f090029;
-        public static final int line5=0x7f09002d;
-        public static final int listViewContacts=0x7f090016;
-        public static final int listViewHistory=0x7f090017;
-        public static final int listViewSmartContacts=0x7f090030;
-        public static final int lltextNumber=0x7f090018;
-        public static final int lnkey=0x7f09001c;
-        public static final int pager=0x7f090014;
-        public static final int share=0x7f090031;
-        public static final int tab_strip=0x7f090015;
-        public static final int textName=0x7f09000f;
-        public static final int textNumber=0x7f090010;
-        public static final int textimg=0x7f090011;
-        public static final int txtEmail=0x7f090002;
-        public static final int txtInfoEmail=0x7f09000a;
-        public static final int txtInfoName=0x7f090006;
-        public static final int txtInfoPhonenumber=0x7f090007;
-        public static final int txtName=0x7f090000;
-        public static final int txtNumberKey=0x7f090019;
-        public static final int txtPass=0x7f090012;
-        public static final int txtPhonenumber=0x7f090001;
+        public static final int btn0=0x7f0a002b;
+        public static final int btn1=0x7f0a001e;
+        public static final int btn2=0x7f0a001f;
+        public static final int btn3=0x7f0a0020;
+        public static final int btn4=0x7f0a0022;
+        public static final int btn5=0x7f0a0023;
+        public static final int btn6=0x7f0a0024;
+        public static final int btn7=0x7f0a0026;
+        public static final int btn8=0x7f0a0027;
+        public static final int btn9=0x7f0a0028;
+        public static final int btnAddtosmart=0x7f0a000d;
+        public static final int btnCancel=0x7f0a0003;
+        public static final int btnDeleteContact=0x7f0a000c;
+        public static final int btnEditContact=0x7f0a000b;
+        public static final int btnInfoCall=0x7f0a0009;
+        public static final int btnInfoMsg=0x7f0a0008;
+        public static final int btnSave=0x7f0a0004;
+        public static final int btnShow=0x7f0a002f;
+        public static final int btnadd=0x7f0a001a;
+        public static final int btncall=0x7f0a002e;
+        public static final int btndel=0x7f0a001b;
+        public static final int btnlogin=0x7f0a0013;
+        public static final int btnsao=0x7f0a002a;
+        public static final int btnthang=0x7f0a002c;
+        public static final int imageContact=0x7f0a000e;
+        public static final int imgcontact=0x7f0a0005;
+        public static final int line1=0x7f0a001d;
+        public static final int line2=0x7f0a0021;
+        public static final int line3=0x7f0a0025;
+        public static final int line4=0x7f0a0029;
+        public static final int line5=0x7f0a002d;
+        public static final int listViewContacts=0x7f0a0016;
+        public static final int listViewHistory=0x7f0a0017;
+        public static final int listViewSmartContacts=0x7f0a0030;
+        public static final int lltextNumber=0x7f0a0018;
+        public static final int lnkey=0x7f0a001c;
+        public static final int pager=0x7f0a0014;
+        public static final int search=0x7f0a0032;
+        public static final int share=0x7f0a0031;
+        public static final int tab_strip=0x7f0a0015;
+        public static final int textName=0x7f0a000f;
+        public static final int textNumber=0x7f0a0010;
+        public static final int textimg=0x7f0a0011;
+        public static final int txtEmail=0x7f0a0002;
+        public static final int txtInfoEmail=0x7f0a000a;
+        public static final int txtInfoName=0x7f0a0006;
+        public static final int txtInfoPhonenumber=0x7f0a0007;
+        public static final int txtName=0x7f0a0000;
+        public static final int txtNumberKey=0x7f0a0019;
+        public static final int txtPass=0x7f0a0012;
+        public static final int txtPhonenumber=0x7f0a0001;
     }
     public static final class layout {
         public static final int add_dialog=0x7f030000;
@@ -110,20 +113,21 @@ public final class R {
         public static final int tabsmartcontacts=0x7f030008;
     }
     public static final class menu {
-        public static final int menu_main=0x7f080000;
+        public static final int menu_main=0x7f090000;
+        public static final int search_menu=0x7f090001;
     }
     public static final class string {
-        public static final int add=0x7f060006;
-        public static final int app_name=0x7f060000;
-        public static final int buttonlogin=0x7f060007;
-        public static final int cancel=0x7f060009;
-        public static final int contacts=0x7f060003;
-        public static final int del=0x7f060004;
-        public static final int history=0x7f060002;
-        public static final int keypab=0x7f060001;
-        public static final int keypad=0x7f060005;
-        public static final int labeladdnew=0x7f060008;
-        public static final int save=0x7f06000a;
+        public static final int add=0x7f070006;
+        public static final int app_name=0x7f070000;
+        public static final int buttonlogin=0x7f070007;
+        public static final int cancel=0x7f070009;
+        public static final int contacts=0x7f070003;
+        public static final int del=0x7f070004;
+        public static final int history=0x7f070002;
+        public static final int keypab=0x7f070001;
+        public static final int keypad=0x7f070005;
+        public static final int labeladdnew=0x7f070008;
+        public static final int save=0x7f07000a;
     }
     public static final class style {
         /** 
@@ -147,10 +151,13 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
+    }
+    public static final class xml {
+        public static final int searchable=0x7f040000;
     }
 }

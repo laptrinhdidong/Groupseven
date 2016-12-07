@@ -4,6 +4,8 @@ import com.example.smartcontacts.R;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -11,13 +13,16 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
-public class MainLayoutActivity extends FragmentActivity {
+public class MainLayoutActivity extends FragmentActivity implements OnQueryTextListener {
 
 	ViewPager pager;
 	PagerTabStrip tab_strp;
@@ -59,5 +64,32 @@ public class MainLayoutActivity extends FragmentActivity {
 	//
 	// return super.onOptionsItemSelected(item);
 	// }
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.search_menu, menu);
+
+	    SearchManager searchManager = (SearchManager)
+	                            getSystemService(Context.SEARCH_SERVICE);
+	    MenuItem searchMenuItem = menu.findItem(R.id.search);
+	    SearchView searchView = (SearchView) searchMenuItem.getActionView();
+
+	    searchView.setSearchableInfo(searchManager.
+	                            getSearchableInfo(getComponentName()));
+	    searchView.setSubmitButtonEnabled(true);
+	    searchView.setOnQueryTextListener(this);
+
+	    return true;
+	}
+	@Override
+	public boolean onQueryTextChange(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public boolean onQueryTextSubmit(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }
