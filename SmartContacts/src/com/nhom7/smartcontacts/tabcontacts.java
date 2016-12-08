@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.example.smartcontacts.R;
+import com.nhom7.adapter.ListContactsAdapter;
+
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,19 +25,21 @@ import android.widget.Toast;
 
 public class tabcontacts extends Fragment implements OnItemClickListener{
 	private ListView lvContacts;
-
+	
+	Context context;
 	ArrayList<String> arrName = new ArrayList<String>();
 	ArrayList<String> arrNuber = new ArrayList<String>();
-	ArrayList<String> arrImage = new ArrayList<String>();
+	ArrayList<String> arrID = new ArrayList<String>();
+	ArrayList<String> arrEmail = new ArrayList<String>();
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.tabcontacts, container, false);
-		
+		context = getActivity();
 		getData();
 		
 		ListView lv = (ListView)view.findViewById(R.id.listViewContacts);
-		com.nhom7.adapter.ListContactsAdapter adapter = new com.nhom7.adapter.ListContactsAdapter(this, arrName, arrNuber);
+		ListContactsAdapter adapter = new ListContactsAdapter(context, arrName, arrNuber, arrID, arrEmail);
 		lv.setAdapter(adapter);
 
 		lv.setOnItemClickListener(new OnItemClickListener() {
@@ -44,7 +48,7 @@ public class tabcontacts extends Fragment implements OnItemClickListener{
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				Toast.makeText(getActivity(),"dcm", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getActivity(),"dd", Toast.LENGTH_SHORT).show();
 				Intent intent = new Intent(getActivity(), InfoContactsActivity.class);
 				startActivity(intent);
 			}
@@ -54,22 +58,30 @@ public class tabcontacts extends Fragment implements OnItemClickListener{
 	
 	public void getData(){
 		ContentResolver cr = getActivity().getContentResolver();
-		String name,number, image;
+		String name,number, image, id, email;
 		Cursor phones = cr.query(
 				ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null,
 				null, null);
 		while (phones.moveToNext()) {
+			id = phones
+					.getString(phones
+							.getColumnIndex(ContactsContract.CommonDataKinds.Phone._ID));
 			name = phones
 					.getString(phones
 							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
 			number = phones
 					.getString(phones
 							.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-			image = phones.getString(phones.getColumnIndex(ContactsContract.Contacts.PHOTO_THUMBNAIL_URI));
-			arrImage.add(image);
+			email = phones
+					.getString(phones
+							.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+//			image = phones.getString(phones.getColumnIndex(ContactsContract.Contacts.PHOTO_THUMBNAIL_URI));
+//			arrImage.add(image);
 			System.out.println(".................." + number);
 			arrName.add(name);
 			arrNuber.add(number);
+			arrID.add(id);
+			arrEmail.add(email);
 		}
 		phones.close();
 	}

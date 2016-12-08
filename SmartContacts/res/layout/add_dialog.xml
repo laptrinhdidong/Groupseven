@@ -4,64 +4,81 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+  <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="vertical" >
+        
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="@dimen/tabtextsize"
-        android:textColor="@color/colorwhite"
         android:background="@color/tabbackground"
+        android:gravity="center"
         android:padding="@dimen/marginbtn"
-        android:text="@string/labeladdnew" />
+        android:text="@string/labeladdnew"
+        android:textColor="@color/colorwhite"
+        android:textSize="@dimen/tabtextsize" />
+
     <EditText
         android:id="@+id/txtName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginbtn"
-        android:padding="@dimen/paddigndedittext"
+        android:hint="Name"
         android:maxLines="1"
-        android:hint="Name" />
+        android:padding="@dimen/paddigndedittext" />
+
     <EditText
         android:id="@+id/txtPhonenumber"
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/marginbtn"
-        android:padding="@dimen/paddigndedittext"
         android:layout_height="wrap_content"
-        android:maxLines="1"
+        android:layout_margin="@dimen/marginbtn"
+        android:hint="Phonenumber"
         android:inputType="number"
-        android:hint="Phonenumber" />
+        android:maxLines="1"
+        android:padding="@dimen/paddigndedittext" />
+
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="match_parent"
-        android:padding="@dimen/paddigndedittext"
-        android:layout_margin="@dimen/marginbtn"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginbtn"
+        android:hint="Email"
         android:maxLines="1"
-        android:hint="Email" />
-    
-    <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal" >
-    <Button
-        android:id="@+id/btnCancel"
-        android:layout_width="0dp"
+        android:padding="@dimen/paddigndedittext" />
+
+    <CheckBox
+        android:id="@+id/cksavesmart"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="@string/savesmart" />
+        </LinearLayout>
+  <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
         android:layout_weight="1"
-        android:textColor="@color/colorwhite"
-        android:background="@color/tabbackground"
-        android:layout_margin="@dimen/marginbtn"
-        android:text="@string/cancel" />
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="@dimen/marginbtn"
-        android:textColor="@color/colorwhite"
-        android:background="@color/tabbackground"
-        android:text="@string/save" />
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginbtn"
+            android:layout_weight="1"
+            android:background="@color/tabbackground"
+            android:text="@string/cancel"
+            android:textColor="@color/colorwhite" />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginbtn"
+            android:layout_weight="1"
+            android:background="@color/tabbackground"
+            android:text="@string/save"
+            android:textColor="@color/colorwhite" />
     </LinearLayout>
 
-    
 </LinearLayout>

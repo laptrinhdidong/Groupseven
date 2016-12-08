@@ -25,20 +25,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ListContactsAdapter extends BaseAdapter {
-	ArrayList<String> name, number, image;
-	tabcontacts context;
+	ArrayList<String> name, number, id, email;
+	Context context;
 	int[] imageId;
 	private static LayoutInflater inflater = null;
 
-	public ListContactsAdapter(tabcontacts tabcontacts, ArrayList<String> arrName,
-			ArrayList<String> arrNumber){
+	public ListContactsAdapter(Context tabcontacts, ArrayList<String> arrName,
+			ArrayList<String> arrNumber, ArrayList<String> arrID, ArrayList<String> arremail){
 		// TODO Auto-generated constructor stub
 		name = arrName;
 		number = arrNumber;
 		context = tabcontacts;
+		id = arrID;
+		email = arremail;
 //		image = arrImage;
-		inflater = (LayoutInflater) context
-				.getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	@Override
@@ -84,7 +85,12 @@ public class ListContactsAdapter extends BaseAdapter {
 //				Intent callIntent = new Intent(Intent.ACTION_CALL);
 //				callIntent.setData(Uri.parse("tel:"+number.get(position)));
 //				context.startActivity(callIntent);
-				context.startActivity(new Intent(rowView.getContext(), InfoContactsActivity.class));
+				Intent intent = new Intent(rowView.getContext(), InfoContactsActivity.class);
+				intent.putExtra("ID", id.get(position));
+				intent.putExtra("Name", name.get(position));
+				intent.putExtra("Number", number.get(position));
+				intent.putExtra("Email", email.get(position));
+				context.startActivity(intent);
 			}
 
 		});

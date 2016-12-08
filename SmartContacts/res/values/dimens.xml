@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
-    <dimen name="tabtextsize">30sp</dimen>
+    <dimen name="tabtextsize">24sp</dimen>
     
     <dimen name="sizeitem">48dp</dimen>
     

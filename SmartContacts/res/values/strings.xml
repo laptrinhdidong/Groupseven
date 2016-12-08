@@ -12,4 +12,5 @@
     <string name="labeladdnew">Add new</string>
     <string name="cancel">Cancel</string>
 	<string name="save">Save</string>
+	<string name="savesmart">Save to smart contacts</string>
 </resources>

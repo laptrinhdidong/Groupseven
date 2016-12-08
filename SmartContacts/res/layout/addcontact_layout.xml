@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/tabbackground"
+            android:gravity="center"
+            android:padding="@dimen/marginbtn"
+            android:text="@string/labeladdnew"
+            android:textColor="@color/colorwhite"
+            android:textSize="@dimen/tabtextsize" />
+
+        <EditText
+            android:id="@+id/txtsmName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginbtn"
+            android:hint="Name"
+            android:maxLines="1"
+            android:padding="@dimen/paddigndedittext" />
+
+        <EditText
+            android:id="@+id/txtsmPhonenumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginbtn"
+            android:hint="Phonenumber"
+            android:inputType="number"
+            android:maxLines="1"
+            android:padding="@dimen/paddigndedittext" />
+
+        <EditText
+            android:id="@+id/txtsmEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginbtn"
+            android:hint="Email"
+            android:maxLines="1"
+            android:padding="@dimen/paddigndedittext" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnCancelsm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginbtn"
+            android:layout_weight="1"
+            android:background="@color/tabbackground"
+            android:text="@string/cancel"
+            android:textColor="@color/colorwhite" />
+
+        <Button
+            android:id="@+id/btnSavesm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/marginbtn"
+            android:layout_weight="1"
+            android:background="@color/tabbackground"
+            android:text="@string/save"
+            android:textColor="@color/colorwhite" />
+    </LinearLayout>
+
+</LinearLayout>

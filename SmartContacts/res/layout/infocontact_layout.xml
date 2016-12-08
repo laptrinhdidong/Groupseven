@@ -21,7 +21,8 @@
         <TextView
             android:id="@+id/txtInfoName"
             android:layout_width="0dp"
-            android:gravity="center"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/sizebutton"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:text="Info Name" />
@@ -48,7 +49,9 @@
             <EditText
                 android:id="@+id/txtInfoPhonenumber"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content"                
+                android:cursorVisible="false"
+                android:editable="false"
                 android:text="Info Name" />
 
             <Button
@@ -79,6 +82,8 @@
                 android:id="@+id/txtInfoEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:editable="false"
                 android:text="Info Phone" />
         </LinearLayout>
     </LinearLayout>

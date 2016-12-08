@@ -14,11 +14,58 @@
         android:background="@color/tabbackground"
         android:text="@string/buttonlogin" />
 
-    <ListView
-        android:id="@+id/listViewSmartContacts"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:visibility="invisible" >
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        android:orientation="vertical" >
+
+
+    <ListView
+        android:id="@+id/lvsmContacts"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
     </ListView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:background="@color/tabbackground"
+        android:gravity="left"
+        android:orientation="horizontal" >
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/btnaddnew"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:textColor="@color/colorwhite"
+            android:text="@string/add" />
+        
+        </LinearLayout>
+            <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:orientation="horizontal" >
+        
+        <Button
+            android:id="@+id/btnselectdel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorwhite"
+            android:background="@null"
+            android:text="@string/del" />
+        </LinearLayout>
+        
+    </LinearLayout>
 
 </LinearLayout>
