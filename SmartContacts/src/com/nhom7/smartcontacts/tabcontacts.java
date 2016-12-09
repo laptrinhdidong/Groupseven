@@ -31,12 +31,16 @@ public class tabcontacts extends Fragment implements OnItemClickListener{
 	ArrayList<String> arrNuber = new ArrayList<String>();
 	ArrayList<String> arrID = new ArrayList<String>();
 	ArrayList<String> arrEmail = new ArrayList<String>();
+	int i = 0;
 	@Override
 	public View onCreateView(LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.tabcontacts, container, false);
 		context = getActivity();
-		getData();
+		i++;
+		if(i==1){			
+			getData();
+		}
 		
 		ListView lv = (ListView)view.findViewById(R.id.listViewContacts);
 		ListContactsAdapter adapter = new ListContactsAdapter(context, arrName, arrNuber, arrID, arrEmail);

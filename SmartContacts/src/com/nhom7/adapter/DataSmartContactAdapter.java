@@ -23,7 +23,6 @@ public class DataSmartContactAdapter extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE "+TABLE_NAME+"(SMID INTEGER PRIMARY KEY AUTOINCREMENT, SMNAME TEXT, SMPHONENUMBER INTEGER, SMEMAIL TEXT)");
-
     }
 
     @Override
@@ -62,13 +61,25 @@ public class DataSmartContactAdapter extends SQLiteOpenHelper {
         contentValues.put(COL_NAME,smname);
         contentValues.put(COL_PHONE,smphone);
         contentValues.put(COL_EMAIL,smemail);
-        db.update(TABLE_NAME, contentValues, "id = ?", new String[] {smid} );
+        db.update(TABLE_NAME, contentValues, "smid = ?", new String[] {smid} );
         return true;
     }
     public boolean DeleteData(String id)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME, "id = ?", new String[] {id});
+        db.delete(TABLE_NAME, "smid = ?", new String[] {id});
         return true;
+    }
+    public Cursor getAData(String id)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE SMID ="+id,null);
+        return res;
+    }
+    public Cursor checknull(Integer sdt)
+    {
+    	SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE SMPHONENUMBER = "+sdt,null);
+        return res;
     }
 }

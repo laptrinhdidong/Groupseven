@@ -13,4 +13,5 @@
     <string name="cancel">Cancel</string>
 	<string name="save">Save</string>
 	<string name="savesmart">Save to smart contacts</string>
+	<string name="status">1</string>
 </resources>

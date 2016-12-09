@@ -87,9 +87,6 @@ public class ListContactsAdapter extends BaseAdapter {
 //				context.startActivity(callIntent);
 				Intent intent = new Intent(rowView.getContext(), InfoContactsActivity.class);
 				intent.putExtra("ID", id.get(position));
-				intent.putExtra("Name", name.get(position));
-				intent.putExtra("Number", number.get(position));
-				intent.putExtra("Email", email.get(position));
 				context.startActivity(intent);
 			}
 

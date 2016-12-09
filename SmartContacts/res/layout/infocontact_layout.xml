@@ -48,23 +48,24 @@
 
             <EditText
                 android:id="@+id/txtInfoPhonenumber"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"                
                 android:cursorVisible="false"
+                android:background="@null"
                 android:editable="false"
                 android:text="Info Name" />
 
             <Button
                 android:id="@+id/btnInfoMsg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="msg" />
+                android:layout_width="@dimen/sizeitem"
+                android:layout_height="@dimen/sizeitem"
+                android:background="@drawable/mes"/>
 
             <Button
                 android:id="@+id/btnInfoCall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="call" />
+                android:layout_width="@dimen/sizeitem"
+                android:layout_height="@dimen/sizeitem"
+                android:background="@drawable/call" />
         </LinearLayout>
 
         <LinearLayout
@@ -84,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:cursorVisible="false"
                 android:editable="false"
+                android:background="@null"
                 android:text="Info Phone" />
         </LinearLayout>
     </LinearLayout>
@@ -95,23 +97,29 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/btnEditContact"
+            android:id="@+id/btnifEditContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
             android:text="Edit Contact" />
         <Button
-            android:id="@+id/btnDeleteContact"
+            android:id="@+id/btnifDeleteContact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
             android:text="Remove Contact" />
         <Button
-            android:id="@+id/btnAddtosmart"
+            android:id="@+id/btnifAddtosmart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
             android:text="Add to Contact" />
     </LinearLayout>
-
+	<Button
+            android:id="@+id/btnback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorwhite"
+            android:background="@color/tabbackground"
+            android:text="back" />
 </LinearLayout>

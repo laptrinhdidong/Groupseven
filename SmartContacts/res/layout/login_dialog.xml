@@ -11,6 +11,14 @@
         android:gravity="center"
         android:layout_height="wrap_content"
         android:hint="Password....." />
+    <EditText
+        android:id="@+id/txtRePass"
+        android:padding="@dimen/paddigndedittext"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:hint="RePassword....." />
 
     <Button
         android:id="@+id/btnlogin"

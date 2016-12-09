@@ -3,10 +3,12 @@ package com.nhom7.smartcontacts;
 import java.util.zip.Inflater;
 
 import com.example.smartcontacts.R;
+import com.nhom7.adapter.DataSmartContactAdapter;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by Dr.h3cker on 14/03/2015.
@@ -29,11 +32,15 @@ public class tabkeypad extends Fragment implements OnClickListener, OnTouchListe
 	public Button btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btnthang,btnsao,btndel,btncall,btnadd;
 	public TextView txtNumber;
 	public String numberphone = "";
-	public tabkeypad context;
+	public Context context;
+	DataSmartContactAdapter dbsmcontact;
 	@Override
 	public View onCreateView(final LayoutInflater inflater,
 			@Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.tabkeypad, container, false);
+		
+		dbsmcontact = new DataSmartContactAdapter(getActivity());
+		
 		btn0 = (Button) view.findViewById(R.id.btn0);
 		btn1 = (Button) view.findViewById(R.id.btn1);
 		btn2 = (Button) view.findViewById(R.id.btn2);
@@ -76,11 +83,11 @@ public class tabkeypad extends Fragment implements OnClickListener, OnTouchListe
 				View v = inflater.inflate(R.layout.add_dialog, null);
 				mBuilder.setView(v);
 				final AlertDialog dialog = mBuilder.create();			
-				EditText txtPhonenumber = (EditText)v.findViewById(R.id.txtPhonenumber);
+				EditText txtPhonenumber = (EditText)v.findViewById(R.id.txtaddPhonenumber);
 				txtPhonenumber.setText(numberphone);
 
 				dialog.show();	
-				Button btnCancel = (Button)v.findViewById(R.id.btnCancel);
+				Button btnCancel = (Button)v.findViewById(R.id.btnaddCancel);
 				btnCancel.setOnClickListener(new OnClickListener() {
 					
 					@Override
@@ -92,7 +99,7 @@ public class tabkeypad extends Fragment implements OnClickListener, OnTouchListe
 			}
 		});
 //		
-		context = this;
+		context = getActivity();
 		checknull();
 		return view;
 	}
@@ -142,9 +149,39 @@ public class tabkeypad extends Fragment implements OnClickListener, OnTouchListe
 		     numberphone = (numberphone.substring(0, numberphone.length() - 1));
 			break;
 		case R.id.btncall:
-			Intent callIntent = new Intent(Intent.ACTION_CALL);
-			callIntent.setData(Uri.parse("tel:"+numberphone));
-			context.startActivity(callIntent);
+			
+			int num = Integer.valueOf(numberphone);
+			Cursor res = dbsmcontact.checknull(num);
+			tabsmartcontacts tabsm = new tabsmartcontacts();
+			tabsm.readFromFile(getActivity());
+			if(tabsm.readFromFile(getActivity()).equals("1"))
+			{
+				Toast.makeText(getActivity(), "not null", Toast.LENGTH_SHORT).show();
+				Intent callIntent = new Intent(Intent.ACTION_CALL);
+				callIntent.setData(Uri.parse("tel:"+numberphone));
+				context.startActivity(callIntent);
+			}
+			else {
+				if(res.getCount() == 0){
+					Toast.makeText(getActivity(), "not null", Toast.LENGTH_SHORT).show();
+					Intent callIntent = new Intent(Intent.ACTION_CALL);
+					callIntent.setData(Uri.parse("tel:"+numberphone));
+					context.startActivity(callIntent);
+		        }
+				else {
+					
+				}	   
+			}			     
+	        res.close();
+//			if(dbsmcontact.checknull(num) == true)
+//			{
+//				Toast.makeText(getActivity(), "null", Toast.LENGTH_SHORT).show();
+//			}else{
+//				Toast.makeText(getActivity(), "not null", Toast.LENGTH_SHORT).show();
+//				Intent callIntent = new Intent(Intent.ACTION_CALL);
+//				callIntent.setData(Uri.parse("tel:"+numberphone));
+//				context.startActivity(callIntent);
+//			}			
 			break;
 
 		default:

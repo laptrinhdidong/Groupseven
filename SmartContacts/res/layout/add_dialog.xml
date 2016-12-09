@@ -21,7 +21,7 @@
         android:textSize="@dimen/tabtextsize" />
 
     <EditText
-        android:id="@+id/txtName"
+        android:id="@+id/txtaddName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginbtn"
@@ -30,7 +30,7 @@
         android:padding="@dimen/paddigndedittext" />
 
     <EditText
-        android:id="@+id/txtPhonenumber"
+        android:id="@+id/txtaddPhonenumber"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginbtn"
@@ -40,7 +40,7 @@
         android:padding="@dimen/paddigndedittext" />
 
     <EditText
-        android:id="@+id/txtEmail"
+        android:id="@+id/txtaddEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/marginbtn"
@@ -49,7 +49,7 @@
         android:padding="@dimen/paddigndedittext" />
 
     <CheckBox
-        android:id="@+id/cksavesmart"
+        android:id="@+id/ckaddsavesmart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/savesmart" />
@@ -61,7 +61,7 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/btnCancel"
+            android:id="@+id/btnaddCancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/marginbtn"
@@ -71,7 +71,7 @@
             android:textColor="@color/colorwhite" />
 
         <Button
-            android:id="@+id/btnSave"
+            android:id="@+id/btnaddSave"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/marginbtn"

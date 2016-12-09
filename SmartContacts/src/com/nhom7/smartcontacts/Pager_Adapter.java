@@ -28,13 +28,16 @@ public class Pager_Adapter extends FragmentPagerAdapter {
 		case 3:
 			tabsmartcontacts t4 = new tabsmartcontacts();
 			return t4;
+		case 4:
+			tababout t5 = new tababout();
+			return t5;
 		}
 		return null;
 	}
 
 	@Override
 	public int getCount() {
-		return 4;
+		return 5;
 	}// set the number of tabs
 
 	@Override
@@ -52,6 +55,9 @@ public class Pager_Adapter extends FragmentPagerAdapter {
 		case 3:
 
 			return "SmartContacts";
+		case 4:
+
+			return "About";
 		}
 		return null;
 	}
