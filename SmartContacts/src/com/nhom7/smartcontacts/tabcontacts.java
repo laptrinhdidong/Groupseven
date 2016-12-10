@@ -31,6 +31,7 @@ public class tabcontacts extends Fragment implements OnItemClickListener{
 	ArrayList<String> arrNuber = new ArrayList<String>();
 	ArrayList<String> arrID = new ArrayList<String>();
 	ArrayList<String> arrEmail = new ArrayList<String>();
+	String type;
 	int i = 0;
 	@Override
 	public View onCreateView(LayoutInflater inflater,
@@ -43,20 +44,23 @@ public class tabcontacts extends Fragment implements OnItemClickListener{
 		}
 		
 		ListView lv = (ListView)view.findViewById(R.id.listViewContacts);
-		ListContactsAdapter adapter = new ListContactsAdapter(context, arrName, arrNuber, arrID, arrEmail);
+		type = "nomal";
+		ListContactsAdapter adapter = new ListContactsAdapter(context, arrName, arrNuber, arrID, arrEmail, type);
 		lv.setAdapter(adapter);
 
-		lv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub
-//				Toast.makeText(getActivity(),"dd", Toast.LENGTH_SHORT).show();
-				Intent intent = new Intent(getActivity(), InfoContactsActivity.class);
-				startActivity(intent);
-			}
-		});
+//		lv.setOnItemClickListener(new OnItemClickListener() {
+//
+//			@Override
+//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+//					long arg3) {
+//				// TODO Auto-generated method stub
+////				Toast.makeText(getActivity(),"dd", Toast.LENGTH_SHORT).show();
+//				Intent intent = new Intent(getActivity(), InfoContactsActivity.class);
+//				intent.putExtra("contacttype", "nomal");
+//				startActivity(intent);
+//			}
+//		});
+		
 		return view;
 	}
 	

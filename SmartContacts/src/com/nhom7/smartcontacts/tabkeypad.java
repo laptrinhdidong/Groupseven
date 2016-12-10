@@ -1,16 +1,22 @@
 package com.nhom7.smartcontacts;
 
+import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import com.example.smartcontacts.R;
 import com.nhom7.adapter.DataSmartContactAdapter;
 
 import android.app.AlertDialog;
+import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.RemoteException;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,6 +26,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,7 +35,7 @@ import android.widget.Toast;
 /**
  * Created by Dr.h3cker on 14/03/2015.
  */
-public class tabkeypad extends Fragment implements OnClickListener, OnTouchListener {
+public class tabkeypad extends Fragment implements OnClickListener {
 	public Button btn0,btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btnthang,btnsao,btndel,btncall,btnadd;
 	public TextView txtNumber;
 	public String numberphone = "";
@@ -73,7 +80,6 @@ public class tabkeypad extends Fragment implements OnClickListener, OnTouchListe
 		btnsao.setOnClickListener(this);
 		btncall.setOnClickListener(this);
 		btndel.setOnClickListener(this);
-		btndel.setOnTouchListener(this);
 		btnadd.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -96,6 +102,38 @@ public class tabkeypad extends Fragment implements OnClickListener, OnTouchListe
 						dialog.cancel();
 					}
 				});
+				Button btnsave = (Button)v.findViewById(R.id.btnaddSave);
+				final EditText txtaddname = (EditText)v.findViewById(R.id.txtaddName);
+				final EditText txtaddphone = (EditText)v.findViewById(R.id.txtaddPhonenumber);
+				final EditText txtaddemail = (EditText)v.findViewById(R.id.txtaddEmail);
+				final CheckBox cksm = (CheckBox)v.findViewById(R.id.ckaddsavesm);
+				btnsave.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						if(cksm.isChecked()){
+							tabsmartcontacts tabsm = new tabsmartcontacts();
+							tabsm.readFromFile(getActivity());
+							if(tabsm.readFromFile(getActivity()).equals("1"))
+							{
+							AddData(txtaddname.getText().toString(), txtaddphone.getText().toString(), txtaddemail.getText().toString());
+							dialog.cancel();
+							}
+							else{
+								Intent go = new Intent(getActivity(),
+										MainLayoutActivity.class);
+								go.putExtra("viewpager_position", 3);
+								startActivity(go);		
+								Toast.makeText(getActivity(),"Please Sign in", Toast.LENGTH_SHORT).show();
+							}
+						}
+						else {
+							createContact(txtaddname.getText().toString(), txtaddphone.getText().toString(), txtaddemail.getText().toString());
+							dialog.cancel();
+						}
+					}
+				});				
 			}
 		});
 //		
@@ -156,14 +194,14 @@ public class tabkeypad extends Fragment implements OnClickListener, OnTouchListe
 			tabsm.readFromFile(getActivity());
 			if(tabsm.readFromFile(getActivity()).equals("1"))
 			{
-				Toast.makeText(getActivity(), "not null", Toast.LENGTH_SHORT).show();
+//				Toast.makeText(getActivity(), "not null", Toast.LENGTH_SHORT).show();
 				Intent callIntent = new Intent(Intent.ACTION_CALL);
 				callIntent.setData(Uri.parse("tel:"+numberphone));
 				context.startActivity(callIntent);
 			}
 			else {
 				if(res.getCount() == 0){
-					Toast.makeText(getActivity(), "not null", Toast.LENGTH_SHORT).show();
+//					Toast.makeText(getActivity(), "not null", Toast.LENGTH_SHORT).show();
 					Intent callIntent = new Intent(Intent.ACTION_CALL);
 					callIntent.setData(Uri.parse("tel:"+numberphone));
 					context.startActivity(callIntent);
@@ -205,16 +243,65 @@ public class tabkeypad extends Fragment implements OnClickListener, OnTouchListe
 			btncall.setClickable(true);
 		}
 	}
-	@Override
-	public boolean onTouch(View v, MotionEvent arg1) {
-		// TODO Auto-generated method stub
-		switch (v.getId()) {
-		case R.id.btndel:
-			break;
+	private void createContact(String name, String phone, String email) {
+    	ContentResolver cr = getActivity().getContentResolver();
+    	
+    	Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
+                null, null, null, null);
+        
+    	if (cur.getCount() > 0) {
+        	while (cur.moveToNext()) {
+        		String existName = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+        		if (existName.contains(name)) {
+                	Toast.makeText(getActivity(),"Phonenumber" + name + " already exists", Toast.LENGTH_SHORT).show();
+                	return;        			
+        		}
+        	}
+    	}
+    	
+        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+        ops.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, email)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, "com.google")
+                .build());
+        ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, name)
+                .build());
+        ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, phone)
+                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_HOME)
+                .build());
 
-		default:
-			break;
+        
+        try {
+			cr.applyBatch(ContactsContract.AUTHORITY, ops);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OperationApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return false;
+
+    	Toast.makeText(getActivity(), "Created a new contact with name: " + name + " and Phone No: " + phone, Toast.LENGTH_SHORT).show();
+//    	
+    }
+	public void AddData(String name, String phonenumber, String email) {
+		int num = Integer.valueOf(phonenumber.toString());
+		boolean isInserted = dbsmcontact.insertData(name, num, email);
+		if (isInserted = true) {
+			Toast.makeText(getActivity(),
+					"Contact insert success!", Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(getActivity(),
+					"Contact insert fail!", Toast.LENGTH_SHORT).show();
+		}
 	}
+	
 }

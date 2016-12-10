@@ -28,10 +28,10 @@
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:gravity="left"
+        android:gravity="center_horizontal"
         android:orientation="horizontal" >
         <Button
-            android:id="@+id/btnaddnew"
+            android:id="@+id/btnaddcontact"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
@@ -39,7 +39,7 @@
             android:text="@string/add" />
         
         </LinearLayout>
-            <LinearLayout
+            <!-- <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
@@ -53,7 +53,7 @@
             android:textColor="@color/colorwhite"
             android:background="@null"
             android:text="@string/del" />
-        </LinearLayout>
+        </LinearLayout> -->
         
     </LinearLayout>
     

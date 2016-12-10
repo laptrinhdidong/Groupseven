@@ -50,7 +50,7 @@ public class tabsmartcontacts extends Fragment implements OnClickListener {
 	Button btnsignout;
 	Context context;
 	DataSmartContactAdapter dbsmcontact;
-	String Password, pass, repass, statuslogin;
+	String Password, pass, repass, statuslogin, type = "smart";
 	int i = 0;
 	
 	@Override
@@ -68,7 +68,7 @@ public class tabsmartcontacts extends Fragment implements OnClickListener {
 		}
 		lvsmContacts = (ListView) view.findViewById(R.id.lvsmContacts);
 		ListContactsAdapter adapter = new ListContactsAdapter(context,
-				arrsmName, arrsmNuber, arrsmID, arrsmEmail);
+				arrsmName, arrsmNuber, arrsmID, arrsmEmail, type);
 		adapter.notifyDataSetChanged();
 		lvsmContacts.setAdapter(adapter);		
 		lnsmcontact = (LinearLayout)view.findViewById(R.id.layoutsmcontact);		
@@ -113,6 +113,9 @@ public class tabsmartcontacts extends Fragment implements OnClickListener {
 								if(pass.equals(repass)){
 									Password = pass;
 									writePassToFile(Password, context);
+									statuslogin="1";
+									writeToFile(statuslogin, context);
+									checklogin();
 									dialog.cancel();									
 								}
 								else{

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import com.example.smartcontacts.R;
@@ -16,11 +17,18 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.RemoteException;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds;
+import android.provider.ContactsContract.RawContacts;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,7 +46,7 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 	Button btnifcall, btnifmes, btnifedit, btnifdel, btnifaddsm, btnaddsave, btnifback,
 			btnaddcancel;
 	TextView txtifname;
-	String id, name, number, email;
+	String id, name, number, email, type;
 	DataSmartContactAdapter dbsmcontact;
 	AlertDialog dialog;
 	ViewPager pager;
@@ -53,9 +61,9 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 
 		Intent intent = getIntent();
 		id = intent.getStringExtra("ID");
-//		name = intent.getStringExtra("Name");
-//		number = intent.getStringExtra("Number");
-//		email = intent.getStringExtra("Email");
+		type = intent.getStringExtra("type");
+		
+//		Toast.makeText(InfoContactsActivity.this, getADataNomal(id), Toast.LENGTH_SHORT).show();
 
 		txtname = (TextView) findViewById(R.id.txtInfoName);
 		txtnumber = (EditText) findViewById(R.id.txtInfoPhonenumber);
@@ -73,7 +81,14 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 		btnifdel.setOnClickListener(this);
 		btnifaddsm.setOnClickListener(this);
 		btnifback.setOnClickListener(this);
-		getAData();
+		if(type.equals("smart"))
+		{
+			getAData();
+		}
+		else {
+			getADataNomal(id);
+			btnifaddsm.setVisibility(View.VISIBLE);
+		}
 
 		AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
 		LayoutInflater inflater = this.getLayoutInflater();
@@ -120,35 +135,88 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 				}
 			});
 			btnaddsave.setOnClickListener(new OnClickListener() {
-
+				
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					UpdateData();
+					if(type.equals("smart"))
+					{
+						UpdateData();
+					}
+					else {
+						updateContactNomal(txtaddName.getText().toString(), txtaddPhonenumber.getText().toString(), txtaddEmail.getText().toString());
+						reload();
+					}
+					
 					dialog.cancel();
 				}
 			});
 			dialog.show();
 			break;
 		case R.id.btnifDeleteContact:
-			DeleteData();
-			Intent go = new Intent(InfoContactsActivity.this,MainLayoutActivity.class);
-            go.putExtra("viewpager_position", 3);
-//            go.putExtra("status", 1);
-            startActivity(go);
+			if(type.equals("smart"))
+			{
+				DeleteData();
+				Intent go = new Intent(InfoContactsActivity.this,MainLayoutActivity.class);
+	            go.putExtra("viewpager_position", 3);
+	            startActivity(go);
+			}
+			else {
+				deleteContactNomal(txtname.getText().toString());
+				Intent go = new Intent(InfoContactsActivity.this,MainLayoutActivity.class);				
+	            go.putExtra("viewpager_position", 2);
+	            startActivity(go);
+			}
 			break;
 		case R.id.btnifAddtosmart:
-
+			tabsmartcontacts tabsm = new tabsmartcontacts();
+			tabsm.readFromFile(InfoContactsActivity.this);
+			if(tabsm.readFromFile(InfoContactsActivity.this).equals("1"))
+			{
+				AddData(txtname.getText().toString(), txtnumber.getText().toString(), txtemail.getText().toString());
+				deleteContactNomal(txtname.getText().toString());
+				Intent go = new Intent(InfoContactsActivity.this,MainLayoutActivity.class);				
+	            go.putExtra("viewpager_position", 3);
+	            startActivity(go);
+			}
+			else {
+				Toast.makeText(InfoContactsActivity.this,
+						"Please Sign in!", Toast.LENGTH_SHORT).show();
+				Intent go = new Intent(InfoContactsActivity.this,MainLayoutActivity.class);				
+	            go.putExtra("viewpager_position", 3);
+	            startActivity(go);
+			}
 			break;
 		case R.id.btnback:
-			onBackPressed();
+			if(type.equals("nomal"))
+			{
+				Intent go2 = new Intent(InfoContactsActivity.this,MainLayoutActivity.class);
+	            go2.putExtra("viewpager_position", 2);
+	            startActivity(go2);
+			}
+			else {
+				Intent go2 = new Intent(InfoContactsActivity.this,MainLayoutActivity.class);
+	            go2.putExtra("viewpager_position", 3);
+	            startActivity(go2);
+			}
+			
 			break;
 
 		default:
 			break;
 		}
 	}
-	
+	public void AddData(String name, String phonenumber, String email) {
+		int num = Integer.valueOf(phonenumber.toString());
+		boolean isInserted = dbsmcontact.insertData(name, num, email);
+		if (isInserted = true) {
+			Toast.makeText(InfoContactsActivity.this,
+					"Smart contact insert success!", Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(InfoContactsActivity.this,
+					"Smart Contact insert fail!", Toast.LENGTH_SHORT).show();
+		}
+	}
 	public void getAData()
 	{
         
@@ -167,7 +235,7 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 	}
 	
 	public void UpdateData() {
-		int num = Integer.valueOf(txtaddPhonenumber.getText().toString());
+		int num = Integer.valueOf(txtnumber.getText().toString());
 		boolean isUpdate = dbsmcontact.UpdateData(id, txtaddName.getText()
 				.toString(), num, txtaddEmail.getText().toString());
 		if (isUpdate == true) {
@@ -235,5 +303,135 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 
 	    return ret;
 	}
+	
+//	control nomal contact
+	
+	private void createContact(String name, String phone, String email) {
+    	ContentResolver cr = getContentResolver();
+    	
+    	Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
+                null, null, null, null);
+        
+    	if (cur.getCount() > 0) {
+        	while (cur.moveToNext()) {
+        		String existName = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+        		if (existName.contains(name)) {
+                	Toast.makeText(InfoContactsActivity.this,"Phonenumber" + name + " already exists", Toast.LENGTH_SHORT).show();
+                	return;        			
+        		}
+        	}
+    	}
+    	
+        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+        ops.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, email)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, "com.google")
+                .build());
+        ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, name)
+                .build());
+        ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, phone)
+                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_HOME)
+                .build());
+
+        
+        try {
+			cr.applyBatch(ContactsContract.AUTHORITY, ops);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OperationApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	private void updateContactNomal(String name, String phone, String email) {
+    	ContentResolver cr = getContentResolver();
+ 
+        String where = ContactsContract.Data.DISPLAY_NAME + " = ? AND " + 
+        			ContactsContract.Data.MIMETYPE + " = ? AND " +
+        			String.valueOf(ContactsContract.CommonDataKinds.Phone.TYPE) + " = ? ";
+        String[] params = new String[] {name,
+        		ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE,
+        		String.valueOf(ContactsContract.CommonDataKinds.Phone.TYPE_HOME)};
+
+        Cursor phoneCur = managedQuery(ContactsContract.Data.CONTENT_URI, null, where, params, null);
+        
+        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+        
+        if ( (null == phoneCur)  ) {
+        	createContact(name, phone, email);
+        } else {
+        	ops.add(ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)
+        	        .withSelection(where, params)
+        	        .withValue(ContactsContract.CommonDataKinds.Phone.DATA, phone)
+        	        .build());
+        }
+        
+        phoneCur.close();
+        
+        try {
+			cr.applyBatch(ContactsContract.AUTHORITY, ops);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OperationApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Toast.makeText(InfoContactsActivity.this, "Updated contacts complete!" + phone, Toast.LENGTH_SHORT).show();
+    }
+
+    private void deleteContactNomal(String name) {
+
+    	ContentResolver cr = getContentResolver();
+    	String where = ContactsContract.Data.DISPLAY_NAME + " = ? ";
+    	String[] params = new String[] {name};
+    
+        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+        ops.add(ContentProviderOperation.newDelete(ContactsContract.RawContacts.CONTENT_URI)
+    	        .withSelection(where, params)
+    	        .build());
+        try {
+			cr.applyBatch(ContactsContract.AUTHORITY, ops);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (OperationApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+//		Toast.makeText(InfoContactsActivity.this, "Deleted the contact with name '" + name +"'", Toast.LENGTH_SHORT).show();
+  
+    }
+    private void getADataNomal(String id)
+    {
+    	String name = null, number = null, email = null;
+    	ContentResolver cr = getContentResolver();
+    	Cursor phone_cursor = cr.query( 
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI, 
+                null,
+                ContactsContract.CommonDataKinds.Phone._ID + " = ?", 
+                new String[]{id}, null); 
+        while (phone_cursor.moveToNext()) 
+        { 
+
+        	name = phone_cursor.getString(phone_cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+        	number = phone_cursor.getString(phone_cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+        	email = phone_cursor.getString(phone_cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
+        }
+        txtname.setText(name);
+        txtnumber.setText(number);
+        txtemail.setText(email);
+    }
 
 }

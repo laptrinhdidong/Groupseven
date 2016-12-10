@@ -26,18 +26,20 @@ import android.widget.Toast;
 
 public class ListContactsAdapter extends BaseAdapter {
 	ArrayList<String> name, number, id, email;
+	String adtype;
 	Context context;
 	int[] imageId;
 	private static LayoutInflater inflater = null;
 
 	public ListContactsAdapter(Context tabcontacts, ArrayList<String> arrName,
-			ArrayList<String> arrNumber, ArrayList<String> arrID, ArrayList<String> arremail){
+			ArrayList<String> arrNumber, ArrayList<String> arrID, ArrayList<String> arremail, String type){
 		// TODO Auto-generated constructor stub
 		name = arrName;
 		number = arrNumber;
 		context = tabcontacts;
 		id = arrID;
 		email = arremail;
+		adtype = type;
 //		image = arrImage;
 		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -87,6 +89,7 @@ public class ListContactsAdapter extends BaseAdapter {
 //				context.startActivity(callIntent);
 				Intent intent = new Intent(rowView.getContext(), InfoContactsActivity.class);
 				intent.putExtra("ID", id.get(position));
+				intent.putExtra("type", adtype);
 				context.startActivity(intent);
 			}
 
