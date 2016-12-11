@@ -186,10 +186,8 @@ public class tabkeypad extends Fragment implements OnClickListener {
 		case R.id.btndel:
 		     numberphone = (numberphone.substring(0, numberphone.length() - 1));
 			break;
-		case R.id.btncall:
-			
-			int num = Integer.valueOf(numberphone);
-			Cursor res = dbsmcontact.checknull(num);
+		case R.id.btncall:			
+			Cursor res = dbsmcontact.checknull(numberphone);
 			tabsmartcontacts tabsm = new tabsmartcontacts();
 			tabsm.readFromFile(getActivity());
 			if(tabsm.readFromFile(getActivity()).equals("1"))
@@ -293,8 +291,7 @@ public class tabkeypad extends Fragment implements OnClickListener {
 //    	
     }
 	public void AddData(String name, String phonenumber, String email) {
-		int num = Integer.valueOf(phonenumber.toString());
-		boolean isInserted = dbsmcontact.insertData(name, num, email);
+		boolean isInserted = dbsmcontact.insertData(name, phonenumber, email);
 		if (isInserted = true) {
 			Toast.makeText(getActivity(),
 					"Contact insert success!", Toast.LENGTH_SHORT).show();
@@ -303,5 +300,4 @@ public class tabkeypad extends Fragment implements OnClickListener {
 					"Contact insert fail!", Toast.LENGTH_SHORT).show();
 		}
 	}
-	
-}
+	}

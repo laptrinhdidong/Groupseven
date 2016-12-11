@@ -17,13 +17,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-public class tabcontacts extends Fragment implements OnItemClickListener{
+public class tabcontacts extends Fragment implements OnClickListener{
 	private ListView lvContacts;
 	
 	Context context;
@@ -47,7 +48,16 @@ public class tabcontacts extends Fragment implements OnItemClickListener{
 		type = "nomal";
 		ListContactsAdapter adapter = new ListContactsAdapter(context, arrName, arrNuber, arrID, arrEmail, type);
 		lv.setAdapter(adapter);
-
+		Button btnshowblack = (Button) view.findViewById(R.id.btnshowblack);
+		btnshowblack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(getActivity(), BlackContact_Activity.class);
+				context.startActivity(intent);
+			}
+		});
 //		lv.setOnItemClickListener(new OnItemClickListener() {
 //
 //			@Override
@@ -95,7 +105,7 @@ public class tabcontacts extends Fragment implements OnItemClickListener{
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		
 	}

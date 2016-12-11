@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DataSmartContactAdapter extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "db_smartcontacts.db";
     public static final String TABLE_NAME = "tbl_smartcontact";
-    public static final String TABLE_NAME_BLACK = "tbl_blackcontact";
     public static final String COL_ID = "SMID";
     public static final String COL_NAME = "SMNAME";
     public static final String COL_PHONE = "SMPHONENUMBER";
@@ -23,22 +22,20 @@ public class DataSmartContactAdapter extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE "+TABLE_NAME+"(SMID INTEGER PRIMARY KEY AUTOINCREMENT, SMNAME TEXT, SMPHONENUMBER INTEGER, SMEMAIL TEXT)");
-        db.execSQL("CREATE TABLE "+TABLE_NAME_BLACK+"(SMID INTEGER PRIMARY KEY AUTOINCREMENT, SMNAME TEXT, SMPHONENUMBER INTEGER, SMEMAIL TEXT)");
+        db.execSQL("CREATE TABLE "+TABLE_NAME+"(SMID INTEGER PRIMARY KEY AUTOINCREMENT, SMNAME TEXT, SMPHONENUMBER TEXT, SMEMAIL TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXITS "+TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXITS "+TABLE_NAME_BLACK);
         onCreate(db);
     }
 
-    public boolean insertData(String smname, int smphone, String smemail){
+    public boolean insertData(String smname, String phonenumber, String smemail){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_NAME,smname);
-        contentValues.put(COL_PHONE,smphone);
+        contentValues.put(COL_PHONE,phonenumber);
         contentValues.put(COL_EMAIL,smemail);
         long result = db.insert(TABLE_NAME, null, contentValues);
         if(result == -1)
@@ -56,7 +53,7 @@ public class DataSmartContactAdapter extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("SELECT * FROM "+TABLE_NAME,null);
         return res;
     }
-    public boolean UpdateData(String smid, String smname, Integer smphone, String smemail)
+    public boolean UpdateData(String smid, String smname, String smphone, String smemail)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -79,39 +76,11 @@ public class DataSmartContactAdapter extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE SMID ="+id,null);
         return res;
     }
-    public Cursor checknull(Integer sdt)
+    public Cursor checknull(String phonenumber)
     {
     	SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE SMPHONENUMBER = "+sdt,null);
+        Cursor res = db.rawQuery("SELECT * FROM "+TABLE_NAME+" WHERE SMPHONENUMBER = "+phonenumber,null);
         return res;
-    }
-//    BLACK CONTACT
-    public Cursor getAllDataBlack()
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM "+TABLE_NAME_BLACK,null);
-        return res;
-    }
-    public boolean insertDataBlack(String smname, int smphone, String smemail){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_NAME,smname);
-        contentValues.put(COL_PHONE,smphone);
-        contentValues.put(COL_EMAIL,smemail);
-        long result = db.insert(TABLE_NAME_BLACK, null, contentValues);
-        if(result == -1)
-        {
-            return false;
-        }
-        else {
-            return true;
-        }
-    }
-    public boolean DeleteDataBlack(String id)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_NAME_BLACK, "smid = ?", new String[] {id});
-        return true;
     }
     
 }

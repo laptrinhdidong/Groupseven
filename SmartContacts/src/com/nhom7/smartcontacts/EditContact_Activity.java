@@ -66,9 +66,8 @@ public class EditContact_Activity extends Activity implements OnClickListener {
 	}
 
 	public void UpdateData() {
-		int num = Integer.valueOf(txtsmphone.getText().toString());
 		boolean isUpdate = dbsmcontact.UpdateData(id, txtsmname.getText()
-				.toString(), num, txtsmemail.getText().toString());
+				.toString(), txtsmphone.getText().toString(), txtsmemail.getText().toString());
 		if (isUpdate == true) {
 			Toast.makeText(
 					EditContact_Activity.this,"Data update as",

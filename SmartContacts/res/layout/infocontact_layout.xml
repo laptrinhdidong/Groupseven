@@ -109,12 +109,18 @@
             android:background="@null"
             android:text="Remove Contact" />
         <Button
+            android:id="@+id/btnifaddblack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:text="Add to block contact" />
+        <Button
             android:id="@+id/btnifAddtosmart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
             android:visibility="gone"
-            android:text="Add to Contact" />
+            android:text="Add to Smart Contact" />
     </LinearLayout>
 	<Button
             android:id="@+id/btnback"

@@ -11,7 +11,7 @@
         android:orientation="vertical" >
 
         <ListView
-            android:id="@+id/listViewContacts"
+            android:id="@+id/lvBlackContacts"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
         </ListView>
@@ -31,15 +31,15 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal" >
         <Button
-            android:id="@+id/btnaddcontact"
+            android:id="@+id/btnBackBlack"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="@null"
             android:textColor="@color/colorwhite"
-            android:text="@string/add" />
+            android:text="Back" />
         
         </LinearLayout>
-            <LinearLayout
+            <!-- <LinearLayout
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
@@ -47,13 +47,13 @@
         android:orientation="horizontal" >
         
         <Button
-            android:id="@+id/btnshowblack"
+            android:id="@+id/btnselectdel"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textColor="@color/colorwhite"
             android:background="@null"
-            android:text="---" />
-        </LinearLayout>
+            android:text="@string/del" />
+        </LinearLayout> -->
         
     </LinearLayout>
     

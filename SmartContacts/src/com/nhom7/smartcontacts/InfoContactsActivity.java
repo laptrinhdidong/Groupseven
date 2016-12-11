@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.zip.Inflater;
 
 import com.example.smartcontacts.R;
+import com.nhom7.adapter.DataBlackContact_Adapter;
 import com.nhom7.adapter.DataSmartContactAdapter;
 
 import android.app.Activity;
@@ -43,11 +44,12 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 
 	TextView txtname;
 	EditText txtnumber, txtemail, txtaddPhonenumber, txtaddName, txtaddEmail;
-	Button btnifcall, btnifmes, btnifedit, btnifdel, btnifaddsm, btnaddsave, btnifback,
+	Button btnifcall, btnifmes, btnifedit, btnifdel, btnifaddsm, btnaddsave, btnifback, btnifaddblack,
 			btnaddcancel;
 	TextView txtifname;
 	String id, name, number, email, type;
 	DataSmartContactAdapter dbsmcontact;
+	DataBlackContact_Adapter dbblackcontact;
 	AlertDialog dialog;
 	ViewPager pager;
 
@@ -58,12 +60,14 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.infocontact_layout);
 
 		dbsmcontact = new DataSmartContactAdapter(this);
+		dbblackcontact = new DataBlackContact_Adapter(this);
+
 
 		Intent intent = getIntent();
 		id = intent.getStringExtra("ID");
 		type = intent.getStringExtra("type");
 		
-//		Toast.makeText(InfoContactsActivity.this, getADataNomal(id), Toast.LENGTH_SHORT).show();
+		Toast.makeText(InfoContactsActivity.this, type, Toast.LENGTH_SHORT).show();
 
 		txtname = (TextView) findViewById(R.id.txtInfoName);
 		txtnumber = (EditText) findViewById(R.id.txtInfoPhonenumber);
@@ -74,6 +78,7 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 		btnifdel = (Button) findViewById(R.id.btnifDeleteContact);
 		btnifaddsm = (Button) findViewById(R.id.btnifAddtosmart);
 		btnifback= (Button)findViewById(R.id.btnback);
+		btnifaddblack = (Button)findViewById(R.id.btnifaddblack);
 
 		btnifmes.setOnClickListener(this);
 		btnifcall.setOnClickListener(this);
@@ -81,13 +86,20 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 		btnifdel.setOnClickListener(this);
 		btnifaddsm.setOnClickListener(this);
 		btnifback.setOnClickListener(this);
+		btnifaddblack.setOnClickListener(this);
 		if(type.equals("smart"))
 		{
 			getAData();
 		}
-		else {
+		if(type.equals("nomal")) {
 			getADataNomal(id);
 			btnifaddsm.setVisibility(View.VISIBLE);
+		}
+		if(type.equals("black"))
+		{
+			getDataBlack();
+			btnifedit.setVisibility(View.GONE);
+			btnifaddblack.setVisibility(View.GONE);
 		}
 
 		AlertDialog.Builder mBuilder = new AlertDialog.Builder(this);
@@ -161,11 +173,18 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 	            go.putExtra("viewpager_position", 3);
 	            startActivity(go);
 			}
-			else {
+			if(type.equals("nomal")) {
 				deleteContactNomal(txtname.getText().toString());
 				Intent go = new Intent(InfoContactsActivity.this,MainLayoutActivity.class);				
 	            go.putExtra("viewpager_position", 2);
 	            startActivity(go);
+			}
+			if(type.equals("black"))
+			{				
+				createContact(txtname.getText().toString(), txtnumber.getText().toString(), txtemail.getText().toString());
+				DeleteDataBlack();
+				Intent intent = new Intent(this, BlackContact_Activity.class);
+				startActivity(intent);
 			}
 			break;
 		case R.id.btnifAddtosmart:
@@ -198,17 +217,34 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 				Intent go2 = new Intent(InfoContactsActivity.this,MainLayoutActivity.class);
 	            go2.putExtra("viewpager_position", 3);
 	            startActivity(go2);
-			}
-			
+			}			
 			break;
-
+		case R.id.btnifaddblack:
+			if(dbblackcontact.checknullblack(txtnumber.getText().toString())==true)
+			{
+				Toast.makeText(InfoContactsActivity.this,
+						"Contact already exists!", Toast.LENGTH_SHORT).show();
+			}
+			else{
+			dbblackcontact.insertDataBlack(txtname.getText().toString(),txtnumber.getText().toString(), txtemail.getText().toString());
+			if(type.equals("nomal"))
+			{
+				deleteContactNomal(txtname.getText().toString());
+			}
+			if(type.equals("smart"))
+			{
+				DeleteData();
+			}
+			Intent go = new Intent(InfoContactsActivity.this,BlackContact_Activity.class);
+            startActivity(go);
+			}
+			break;
 		default:
 			break;
 		}
 	}
 	public void AddData(String name, String phonenumber, String email) {
-		int num = Integer.valueOf(phonenumber.toString());
-		boolean isInserted = dbsmcontact.insertData(name, num, email);
+		boolean isInserted = dbsmcontact.insertData(name, phonenumber, email);
 		if (isInserted = true) {
 			Toast.makeText(InfoContactsActivity.this,
 					"Smart contact insert success!", Toast.LENGTH_SHORT).show();
@@ -235,9 +271,8 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
 	}
 	
 	public void UpdateData() {
-		int num = Integer.valueOf(txtnumber.getText().toString());
 		boolean isUpdate = dbsmcontact.UpdateData(id, txtaddName.getText()
-				.toString(), num, txtaddEmail.getText().toString());
+				.toString(), txtnumber.getText().toString(), txtaddEmail.getText().toString());
 		if (isUpdate == true) {
 			Toast.makeText(InfoContactsActivity.this, "Contact update success",
 					Toast.LENGTH_SHORT).show();
@@ -433,5 +468,30 @@ public class InfoContactsActivity extends Activity implements OnClickListener {
         txtnumber.setText(number);
         txtemail.setText(email);
     }
+	private void getDataBlack()
+	{        
+		Cursor res = dbblackcontact.getADataBlack(id);
+		if(res.getCount() == 0){
+            Toast.makeText(InfoContactsActivity.this, "fail", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        while (res.moveToNext())
+        {
+        	txtname.setText(res.getString(1));
+        	txtnumber.setText(res.getString(2));
+        	txtemail.setText(res.getString(3));
+        }
+        res.close();
+	}
+	public void DeleteDataBlack() {
+		boolean isDelete = dbblackcontact.DeleteDataBlack(id);
+		if (isDelete = true) {
+			Toast.makeText(InfoContactsActivity.this, "Contact delete success!",
+					Toast.LENGTH_SHORT).show();
+		} else {
+			Toast.makeText(InfoContactsActivity.this, "Contact delete fail!",
+					Toast.LENGTH_SHORT).show();
+		}
+	}
 
 }

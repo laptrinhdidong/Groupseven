@@ -58,12 +58,12 @@ public class AddSmartContact_Activity extends Activity implements
 	}
 
 	public void AddData(String name, String phonenumber, String email) {
-		int num = Integer.valueOf(phonenumber.toString());
+//		int num = Integer.valueOf(phonenumber.toString());
 		
-		Cursor res = dbsmcontact.checknull(num);
+		Cursor res = dbsmcontact.checknull(phonenumber);
 		if(res.getCount() == 0)
 		{
-			boolean isInserted = dbsmcontact.insertData(name, num, email);
+			boolean isInserted = dbsmcontact.insertData(name, phonenumber, email);
 			if (isInserted = true) {
 				Toast.makeText(AddSmartContact_Activity.this,
 						"Contact insert success!", Toast.LENGTH_SHORT).show();
