@@ -1,9 +1,8 @@
 package com.nhom7.smartcontacts;
 
 import com.example.smartcontacts.R;
-import com.nhom7.adapter.DataSmartContactAdapter;
+import com.nhom7.adapter.DataSmartContact_Adapter;
 
-import android.R.integer;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -17,7 +16,7 @@ import android.widget.Toast;
 public class AddSmartContact_Activity extends Activity implements
 		OnClickListener {
 
-	DataSmartContactAdapter dbsmcontact;
+	DataSmartContact_Adapter dbsmcontact;
 	Button btnaddsm, btncancelsm;
 	EditText txtsmname, txtsmphone, txtsmemail;
 
@@ -27,7 +26,7 @@ public class AddSmartContact_Activity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addcontact_layout);
 
-		dbsmcontact = new DataSmartContactAdapter(this);
+		dbsmcontact = new DataSmartContact_Adapter(this);
 
 		btnaddsm = (Button) findViewById(R.id.btnSavesm);
 		btncancelsm = (Button) findViewById(R.id.btnCancelsm);
@@ -46,7 +45,19 @@ public class AddSmartContact_Activity extends Activity implements
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
 		case R.id.btnSavesm:
-			AddData(txtsmemail.getText().toString(), txtsmphone.getText().toString(), txtsmemail.getText().toString());
+			if(txtsmname.length() !=0)
+			{
+				Toast.makeText(AddSmartContact_Activity.this,
+						"Name null", Toast.LENGTH_SHORT).show();
+			}
+			if(txtsmphone.length()==0)
+			{
+				Toast.makeText(AddSmartContact_Activity.this,
+						"Phonenumber null", Toast.LENGTH_SHORT).show();
+			}
+			if(txtsmname.length()!=0 && txtsmphone.length() !=0) {
+				AddData(txtsmname.getText().toString(), txtsmphone.getText().toString(), txtsmemail.getText().toString());
+			}
 			break;
 		case R.id.btnCancelsm:
 			onBackPressed();
@@ -57,9 +68,7 @@ public class AddSmartContact_Activity extends Activity implements
 		}
 	}
 
-	public void AddData(String name, String phonenumber, String email) {
-//		int num = Integer.valueOf(phonenumber.toString());
-		
+	public void AddData(String name, String phonenumber, String email) {		
 		Cursor res = dbsmcontact.checknull(phonenumber);
 		if(res.getCount() == 0)
 		{
@@ -68,8 +77,8 @@ public class AddSmartContact_Activity extends Activity implements
 				Toast.makeText(AddSmartContact_Activity.this,
 						"Contact insert success!", Toast.LENGTH_SHORT).show();
 				Intent go = new Intent(AddSmartContact_Activity.this,
-						MainLayoutActivity.class);
-				go.putExtra("viewpager_position", 3);
+						MainLayout_Activity.class);
+				go.putExtra("viewpager_position", 2);
 				startActivity(go);
 			} else {
 				Toast.makeText(AddSmartContact_Activity.this,

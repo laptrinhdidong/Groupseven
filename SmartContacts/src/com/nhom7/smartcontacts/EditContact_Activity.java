@@ -10,11 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.smartcontacts.R;
-import com.nhom7.adapter.DataSmartContactAdapter;
+import com.nhom7.adapter.DataSmartContact_Adapter;
 
 public class EditContact_Activity extends Activity implements OnClickListener {
 
-	DataSmartContactAdapter dbsmcontact;
+	DataSmartContact_Adapter dbsmcontact;
 	Button btnaddsm, btncancelsm;
 	EditText txtsmname, txtsmphone, txtsmemail;
 	String id, name, number, email;
@@ -25,7 +25,7 @@ public class EditContact_Activity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addcontact_layout);
 
-		dbsmcontact = new DataSmartContactAdapter(this);
+		dbsmcontact = new DataSmartContact_Adapter(this);
 
 		btnaddsm = (Button) findViewById(R.id.btnSavesm);
 		btncancelsm = (Button) findViewById(R.id.btnCancelsm);

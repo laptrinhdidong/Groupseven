@@ -2,28 +2,32 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorwhite"
     android:orientation="vertical" >
-
+	
     <EditText
         android:id="@+id/txtPass"
         android:padding="@dimen/paddigndedittext"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:hint="Password....." />
     <EditText
         android:id="@+id/txtRePass"
         android:padding="@dimen/paddigndedittext"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="gone"
         android:hint="RePassword....." />
 
     <Button
         android:id="@+id/btnlogin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:textColor="@color/colorwhite"
         android:background="@color/tabbackground"
         android:text="@string/buttonlogin" />

@@ -4,4 +4,5 @@
     <color name="borderbottom">#2196F3</color>
     <color name="colorwhite">#ffffff</color>
     <color name="colorred">#F44336</color>
+    <color name="textitem">#000000</color>
 </resources>

@@ -14,4 +14,9 @@
 	<string name="save">Save</string>
 	<string name="savesmart">Save to smart contacts</string>
 	<string name="status">1</string>
-</resources>
+	<string name="teacher">Instructors: Tieu Kim Cuong</string>
+	<string name="student">Team: Group Seven</string>
+	<string name="school">TDC</string>
+	
+	
+	</resources>

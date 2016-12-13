@@ -3,18 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="@color/colorwhite"
     android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
         android:gravity="center"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/btnShow"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="@dimen/marginbtn"
             android:background="@color/tabbackground"
             android:text="@string/buttonlogin"
@@ -24,7 +26,7 @@
         <Button
             android:id="@+id/btnsigout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="@dimen/marginbtn"
             android:background="@color/tabbackground"
             android:text="Sign out"
@@ -35,7 +37,8 @@
     <LinearLayout
         android:id="@+id/layoutsmcontact"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
         android:orientation="vertical"
         android:visibility="invisible" >
 
@@ -53,19 +56,12 @@
             </ListView>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.6"
-            android:background="@color/tabbackground"
-            android:gravity="left"
-            android:orientation="horizontal" >
-
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="fill_parent"
-                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.55"
                 android:gravity="center_horizontal"
+                android:background="@color/tabbackground"
                 android:orientation="horizontal" >
 
                 <Button
@@ -92,7 +88,6 @@
                     android:text="@string/del"
                     android:textColor="@color/colorwhite" />
             </LinearLayout> -->
-        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>

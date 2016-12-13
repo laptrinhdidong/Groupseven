@@ -15,6 +15,7 @@ public final class R {
         public static final int colorred=0x7f050003;
         public static final int colorwhite=0x7f050002;
         public static final int tabbackground=0x7f050000;
+        public static final int textitem=0x7f050004;
     }
     public static final class dimen {
         /** 
@@ -49,11 +50,12 @@ public final class R {
         public static final int iclauncherweb=0x7f020009;
         public static final int icon1=0x7f02000a;
         public static final int iconui=0x7f02000b;
-        public static final int mes=0x7f02000c;
-        public static final int refrech=0x7f02000d;
+        public static final int logo=0x7f02000c;
+        public static final int mes=0x7f02000d;
         public static final int search=0x7f02000e;
     }
     public static final class id {
+        public static final int autosearch=0x7f0a0020;
         public static final int btn0=0x7f0a0038;
         public static final int btn1=0x7f0a002b;
         public static final int btn2=0x7f0a002c;
@@ -104,12 +106,10 @@ public final class R {
         public static final int lvsmContacts=0x7f0a003f;
         public static final int mark=0x7f0a0041;
         public static final int pager=0x7f0a001e;
-        public static final int search=0x7f0a0043;
-        public static final int share=0x7f0a0042;
+        public static final int search=0x7f0a0042;
         public static final int tab_strip=0x7f0a001f;
         public static final int textName=0x7f0a0019;
         public static final int textNumber=0x7f0a001a;
-        public static final int textView1=0x7f0a0020;
         public static final int txtInfoEmail=0x7f0a0012;
         public static final int txtInfoName=0x7f0a000e;
         public static final int txtInfoPhonenumber=0x7f0a000f;
@@ -128,18 +128,19 @@ public final class R {
         public static final int addcontact_layout=0x7f030001;
         public static final int blackcontacts_layout=0x7f030002;
         public static final int infocontact_layout=0x7f030003;
-        public static final int listcontacts=0x7f030004;
+        public static final int listcontacts_list=0x7f030004;
         public static final int login_dialog=0x7f030005;
         public static final int main_activity=0x7f030006;
-        public static final int tababout=0x7f030007;
-        public static final int tabcontacts=0x7f030008;
-        public static final int tabhistory=0x7f030009;
-        public static final int tabkeypad=0x7f03000a;
-        public static final int tabsmartcontacts=0x7f03000b;
+        public static final int searchview=0x7f030007;
+        public static final int tababout=0x7f030008;
+        public static final int tabcontacts=0x7f030009;
+        public static final int tabhistory=0x7f03000a;
+        public static final int tabkeypad=0x7f03000b;
+        public static final int tabsmartcontacts=0x7f03000c;
+        public static final int welcomescreen=0x7f03000d;
     }
     public static final class menu {
-        public static final int menu_main=0x7f090000;
-        public static final int search_menu=0x7f090001;
+        public static final int search_menu=0x7f090000;
     }
     public static final class string {
         public static final int add=0x7f070006;
@@ -154,18 +155,17 @@ public final class R {
         public static final int labeladdnew=0x7f070008;
         public static final int save=0x7f07000a;
         public static final int savesmart=0x7f07000b;
+        public static final int school=0x7f07000f;
         public static final int status=0x7f07000c;
+        public static final int student=0x7f07000e;
+        public static final int teacher=0x7f07000d;
     }
     public static final class style {
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
 
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
+    
 
         Base application theme for API 11+. This theme completely replaces
         AppBaseTheme from res/values/styles.xml on API 11+ devices.
@@ -183,6 +183,8 @@ public final class R {
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
+        public static final int MyActionBarTheme=0x7f080003;
+        public static final int MyCustomTheme=0x7f080002;
     }
     public static final class xml {
         public static final int searchable=0x7f040000;
