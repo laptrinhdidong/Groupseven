@@ -28,6 +28,7 @@
         android:layout_margin="@dimen/marginbtn"
         android:hint="Name"
         android:maxLines="1"
+        android:maxLength="20"
         android:padding="@dimen/paddigndedittext" />
 
     <EditText
@@ -47,6 +48,7 @@
         android:layout_margin="@dimen/marginbtn"
         android:hint="Email"
         android:maxLines="1"
+        android:inputType="textEmailAddress"
         android:padding="@dimen/paddigndedittext" />
 
     <CheckBox

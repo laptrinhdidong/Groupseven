@@ -44,15 +44,9 @@ public class TabContacts_Fragment extends Fragment implements OnClickListener{
 		ListContacts_Adapter adapter = new ListContacts_Adapter(context, arrName, arrNuber, arrID, arrEmail, type);
 		lv.setAdapter(adapter);
 		Button btnshowblack = (Button) view.findViewById(R.id.btnshowblack);
-		btnshowblack.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(getActivity(), BlackContact_Activity.class);
-				context.startActivity(intent);
-			}
-		});
+		Button btnaddcontact = (Button)view.findViewById(R.id.btnaddcontact);
+		btnaddcontact.setOnClickListener(this);
+		btnshowblack.setOnClickListener(this);
 		return view;
 	}
 	
@@ -87,7 +81,19 @@ public class TabContacts_Fragment extends Fragment implements OnClickListener{
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
+		switch (v.getId()) {
+		case R.id.btnaddcontact:
+			Intent intent2 = new Intent(context, AddSmartContact_Activity.class);
+			intent2.putExtra("type", "nomal");
+			context.startActivity(intent2);
+			break;
+		case R.id.btnshowblack:
+			Intent intent = new Intent(getActivity(), BlackContact_Activity.class);
+			context.startActivity(intent);
+		break;
+		default:
+			break;
+		}
 	}
 
 }

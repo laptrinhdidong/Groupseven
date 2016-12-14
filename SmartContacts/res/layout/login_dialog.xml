@@ -11,6 +11,8 @@
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_height="0dp"
+        android:maxLength="12"
+        android:inputType="textPassword"
         android:layout_weight="1"
         android:hint="Password....." />
     <EditText
@@ -18,6 +20,8 @@
         android:padding="@dimen/paddigndedittext"
         android:layout_width="match_parent"
         android:gravity="center"
+        android:maxLength="12"
+        android:inputType="textPassword"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:visibility="gone"

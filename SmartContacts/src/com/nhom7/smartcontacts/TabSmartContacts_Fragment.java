@@ -163,6 +163,7 @@ public class TabSmartContacts_Fragment extends Fragment implements OnClickListen
 				// TODO Auto-generated method stub
 				Intent intent = new Intent(getActivity(),
 						AddSmartContact_Activity.class);
+				intent.putExtra("type", "smart");
 				startActivity(intent);
 			}
 		});

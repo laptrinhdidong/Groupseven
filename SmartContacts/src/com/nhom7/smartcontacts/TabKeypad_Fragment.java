@@ -280,8 +280,7 @@ public class TabKeypad_Fragment extends Fragment implements OnClickListener {
 			e.printStackTrace();
 		}
         Toast.makeText(getActivity(),
-				"Contact insert success!", Toast.LENGTH_SHORT).show();
-//    	
+				"Contact insert success!", Toast.LENGTH_SHORT).show();	
     }
 	public void AddData(String name, String phonenumber, String email) {
 		boolean isInserted = dbsmcontact.insertData(name, phonenumber, email);
