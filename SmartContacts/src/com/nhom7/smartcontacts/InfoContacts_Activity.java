@@ -176,8 +176,8 @@ public class InfoContacts_Activity extends Activity implements OnClickListener {
 				startActivity(go);
 			}
 			if (type.equals("black")) {
-				createContact(txtname.getText().toString(), txtnumber.getText()
-						.toString(), txtemail.getText().toString());
+//				createContact(txtname.getText().toString(), txtnumber.getText()
+//						.toString(), txtemail.getText().toString());
 				DeleteDataBlack();
 				Intent intent = new Intent(this, BlackContact_Activity.class);
 				startActivity(intent);
@@ -207,7 +207,7 @@ public class InfoContacts_Activity extends Activity implements OnClickListener {
 			if (type.equals("nomal")) {
 				Intent go2 = new Intent(InfoContacts_Activity.this,
 						MainLayout_Activity.class);
-				go2.putExtra("viewpager_position", 2);
+				go2.putExtra("viewpager_position", 1);
 				startActivity(go2);
 			} else {
 				Intent go2 = new Intent(InfoContacts_Activity.this,
@@ -217,22 +217,9 @@ public class InfoContacts_Activity extends Activity implements OnClickListener {
 			}
 			break;
 		case R.id.btnifaddblack:
-//			if (dbblackcontact.checknullblack(txtnumber.getText().toString()) == false) {
-//				Toast.makeText(InfoContacts_Activity.this,
-//						"Contact already exists!", Toast.LENGTH_SHORT).show();
-//			} else {
-//				dbblackcontact.insertDataBlack(txtname.getText().toString(),
-//						txtnumber.getText().toString(), txtemail.getText()
-//								.toString());
-//			}
-//			if (dbsmcontact.checknullsm(txtnumber.getText().toString()) == true) {
-//				Toast.makeText(InfoContacts_Activity.this,
-//						"Contact already exists!", Toast.LENGTH_SHORT).show();
-//			} else {
 				dbblackcontact.insertDataBlack(txtname.getText().toString(),
 						txtnumber.getText().toString(), txtemail.getText()
 								.toString());
-//			}
 			if (type.equals("nomal")) {
 				deleteContactNomal(txtname.getText().toString());
 			}

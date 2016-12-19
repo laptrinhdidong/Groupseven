@@ -45,9 +45,8 @@ public class TabSmartContacts_Fragment extends Fragment implements OnClickListen
 	LinearLayout lnsmcontact;
 	Boolean check  = false;
 	EditText txtpassword, txtrepass;
-	Button btnlogin;
-	Button btnshow;
-	Button btnsignout;
+	Button btnlogin, btnshow, btnsignout, btnreset;
+	LinearLayout llsigout;
 	Context context;
 	DataSmartContact_Adapter dbsmcontact;
 	String Password, pass, repass, statuslogin, type = "smart";
@@ -74,6 +73,8 @@ public class TabSmartContacts_Fragment extends Fragment implements OnClickListen
 		lnsmcontact = (LinearLayout)view.findViewById(R.id.layoutsmcontact);		
 		btnshow = (Button) view.findViewById(R.id.btnShow);
 		btnsignout = (Button) view.findViewById(R.id.btnsigout);
+		btnreset = (Button) view.findViewById(R.id.btnresetpass);
+		llsigout = (LinearLayout) view.findViewById(R.id.llbuttonsignout);
 		btnshow.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -155,6 +156,37 @@ public class TabSmartContacts_Fragment extends Fragment implements OnClickListen
 				checklogin();
 			}
 		});
+		btnreset.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				AlertDialog.Builder mBuilder = new AlertDialog.Builder(
+						getActivity());
+				View v1 = inflater.inflate(R.layout.login_dialog, null);
+				mBuilder.setView(v1);				
+				final AlertDialog dialog = mBuilder.create();				
+				dialog.show();
+				btnlogin = (Button)v1.findViewById(R.id.btnlogin);
+				txtpassword = (EditText)v1.findViewById(R.id.txtPass);
+				btnlogin.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						if(txtpassword.getText().toString().equals(readPassFromFile(context))){
+							statuslogin="0";
+							writeToFile(statuslogin, context);
+							Password = "";
+							writePassToFile(Password, context);
+							reload();
+							checklogin();
+						}
+					}
+				});
+				
+			}
+		});
 		Button btnaddsm = (Button) view.findViewById(R.id.btnaddnew);
 		btnaddsm.setOnClickListener(new OnClickListener() {
 
@@ -200,12 +232,12 @@ public class TabSmartContacts_Fragment extends Fragment implements OnClickListen
 	{
 		MainLayout_Activity main = (MainLayout_Activity)getActivity();
 		if(readFromFile(context).equals("1")){
-			btnsignout.setVisibility(View.VISIBLE);
+			llsigout.setVisibility(View.VISIBLE);
 			btnshow.setVisibility(View.GONE);
 			lnsmcontact.setVisibility(View.VISIBLE);
 		}
 		else{
-			btnsignout.setVisibility(View.GONE);
+			llsigout.setVisibility(View.VISIBLE);
 			btnshow.setVisibility(View.VISIBLE);
 			lnsmcontact.setVisibility(View.INVISIBLE);
 		}

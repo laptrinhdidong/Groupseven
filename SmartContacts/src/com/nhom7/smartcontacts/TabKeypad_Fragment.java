@@ -207,7 +207,11 @@ public class TabKeypad_Fragment extends Fragment implements OnClickListener {
 					context.startActivity(callIntent);
 		        }
 				else {
-					
+					Intent go = new Intent(getActivity(),
+							MainLayout_Activity.class);
+					go.putExtra("viewpager_position", 2);
+					startActivity(go);		
+					Toast.makeText(getActivity(),"Please Sign in", Toast.LENGTH_SHORT).show();
 				}	   
 			}			     
 	        res.close();			

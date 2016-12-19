@@ -6,9 +6,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.telephony.TelephonyManager;
+import android.util.Log;
+import android.widget.Toast;
 public class Blockphone_BroadcastReceiver extends BroadcastReceiver {
 	Context context;
 	TelephonyManager telephonyManager;
@@ -58,8 +61,29 @@ public class Blockphone_BroadcastReceiver extends BroadcastReceiver {
 		}
 
 	}
-	public void DeleteCallLogByNumber(String number) {  
-		String queryString="NUMBER=0"+number; 
-	    context.getContentResolver().delete(CallLog.Calls.CONTENT_URI,queryString,null);
+	public void DeleteCallLogByNumber(String numberp) { 
+		try {
+	        Thread.sleep(4000);
+	        String strNumberOne[] = { numberp };
+	        Cursor cursor = context.getContentResolver().query(
+	                CallLog.Calls.CONTENT_URI, null,
+	                CallLog.Calls.NUMBER + " = ? ", strNumberOne, "");
+	        boolean bol = cursor.moveToFirst();
+	        if (bol) {
+	            do {
+	                int idOfRowToDelete = cursor.getInt(cursor
+	                        .getColumnIndex(CallLog.Calls._ID));
+	                context.getContentResolver().delete(
+	                        CallLog.Calls.CONTENT_URI,
+	                        CallLog.Calls._ID + "= ? ",
+	                        new String[] { String.valueOf(idOfRowToDelete) });
+	            } while (cursor.moveToNext());
+	        }
+	    } catch (Exception ex) {
+	        Log.v("deleteNumber",
+	                "Exception, unable to remove # from call log: "
+	                        + ex.toString());
+	    }
+
 	}
 }

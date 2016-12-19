@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 public class DataSmartContact_Adapter extends SQLiteOpenHelper {
 	public static final String DATABASE_NAME = "db_smartcontacts.db";
@@ -80,14 +81,14 @@ public class DataSmartContact_Adapter extends SQLiteOpenHelper {
 	public Cursor checknull(String phonenumber) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor res = db.rawQuery("SELECT * FROM " + TABLE_NAME
-				+ " WHERE SMPHONENUMBER = " + phonenumber, null);
+				+ " WHERE SMPHONENUMBER = '"+phonenumber+"'", null);
 		return res;
 	}
 
 	public Boolean checknullsm(String phonenumber) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor res = db.rawQuery("SELECT * FROM " + TABLE_NAME
-				+ " WHERE SMPHONENUMBER = " + phonenumber, null);
+				+ " WHERE SMPHONENUMBER = '"+phonenumber+"'", null);
 		if (res.getCount() <= 0) {
 			return true;
 		} else {
