@@ -108,6 +108,11 @@ public class TabKeypad_Fragment extends Fragment implements OnClickListener {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
+						if(txtaddname.length() == 0 || txtaddphone.length()==0 || txtaddemail.length()==0)
+						{
+							Toast.makeText(context, "Please enter the full information", Toast.LENGTH_SHORT).show();
+						}
+						else{
 						if(cksm.isChecked()){
 							TabSmartContacts_Fragment tabsm = new TabSmartContacts_Fragment();
 							tabsm.readFromFile(getActivity());
@@ -135,6 +140,7 @@ public class TabKeypad_Fragment extends Fragment implements OnClickListener {
 									MainLayout_Activity.class);
 							go.putExtra("viewpager_position", 1);
 							startActivity(go);
+						}
 						}
 					}
 				});				
@@ -295,5 +301,9 @@ public class TabKeypad_Fragment extends Fragment implements OnClickListener {
 			Toast.makeText(getActivity(),
 					"Contact insert fail!", Toast.LENGTH_SHORT).show();
 		}
+	}
+	private void checkinsert()
+	{
+		
 	}
 	}

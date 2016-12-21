@@ -146,16 +146,24 @@ public class InfoContacts_Activity extends Activity implements OnClickListener {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
+					if(txtaddName.length() == 0 || txtaddPhonenumber.length()==0 || txtaddEmail.length()==0)
+					{
+						Toast.makeText(InfoContacts_Activity.this, "Please enter the full information", Toast.LENGTH_SHORT).show();
+					}
+					else{
 					if (type.equals("smart")) {
 						UpdateData();
+						dialog.cancel();
 					} else {
-						updateContactNomal(txtaddName.getText().toString(),
+						Toast.makeText(InfoContacts_Activity.this, "id: "+id, Toast.LENGTH_SHORT).show();
+						updateContactNomal(id, txtaddName.getText().toString(),
 								txtaddPhonenumber.getText().toString(),
 								txtaddEmail.getText().toString());
 						reload();
+						dialog.cancel();
 					}
-
-					dialog.cancel();
+					}
+					
 				}
 			});
 			dialog.show();
@@ -339,52 +347,42 @@ public class InfoContacts_Activity extends Activity implements OnClickListener {
 	// control nomal contact
 
 	private void createContact(String name, String phone, String email) {
-		ContentResolver cr = getContentResolver();
+    	ContentResolver cr = getContentResolver();
+    	
+    	Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
+                null, null, null, null);
+        
+    	if (cur.getCount() > 0) {
+        	while (cur.moveToNext()) {
+        		String existName = cur.getString(cur.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+        		if (existName.contains(name)) {
+                	Toast.makeText(InfoContacts_Activity.this,"Phonenumber" + name + " already exists", Toast.LENGTH_SHORT).show();
+                	return;        			
+        		}
+        	}
+    	}
+    	
+        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+        ops.add(ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, email)
+                .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, "com.google")
+                .build());
+        ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME, name)
+                .build());
+        ops.add(ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI)
+                .withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
+                .withValue(ContactsContract.Data.MIMETYPE,
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+                .withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, phone)
+                .withValue(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_HOME)
+                .build());
 
-		Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI, null,
-				null, null, null);
-
-		if (cur.getCount() > 0) {
-			while (cur.moveToNext()) {
-				String existName = cur
-						.getString(cur
-								.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-				if (existName.contains(name)) {
-					Toast.makeText(InfoContacts_Activity.this,
-							"Phonenumber" + name + " already exists",
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
-			}
-		}
-
-		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-		ops.add(ContentProviderOperation
-				.newInsert(ContactsContract.RawContacts.CONTENT_URI)
-				.withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, email)
-				.withValue(ContactsContract.RawContacts.ACCOUNT_NAME,
-						"com.google").build());
-		ops.add(ContentProviderOperation
-				.newInsert(ContactsContract.Data.CONTENT_URI)
-				.withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-				.withValue(
-						ContactsContract.Data.MIMETYPE,
-						ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
-				.withValue(
-						ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME,
-						name).build());
-		ops.add(ContentProviderOperation
-				.newInsert(ContactsContract.Data.CONTENT_URI)
-				.withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID, 0)
-				.withValue(
-						ContactsContract.Data.MIMETYPE,
-						ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
-				.withValue(ContactsContract.CommonDataKinds.Phone.NUMBER, phone)
-				.withValue(ContactsContract.CommonDataKinds.Phone.TYPE,
-						ContactsContract.CommonDataKinds.Phone.TYPE_HOME)
-				.build());
-
-		try {
+        
+        try {
 			cr.applyBatch(ContactsContract.AUTHORITY, ops);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -394,37 +392,36 @@ public class InfoContacts_Activity extends Activity implements OnClickListener {
 			e.printStackTrace();
 		}
 	}
+	private void updateContactNomal(String id, String name, String phone, String email) {
+    	ContentResolver cr = getContentResolver();
+ 
+        String where = ContactsContract.CommonDataKinds.Phone._ID + " = ? AND " + 
+        			ContactsContract.Data.MIMETYPE + " = ? AND " +
+        			String.valueOf(ContactsContract.CommonDataKinds.Phone.TYPE) + " = ? ";
+        String[] params = new String[] {id,
+        		ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE,
+        		String.valueOf(ContactsContract.CommonDataKinds.Phone.TYPE_HOME)};
 
-	private void updateContactNomal(String name, String phone, String email) {
-		ContentResolver cr = getContentResolver();
-
-		String where = ContactsContract.Data.DISPLAY_NAME + " = ? AND "
-				+ ContactsContract.Data.MIMETYPE + " = ? AND "
-				+ String.valueOf(ContactsContract.CommonDataKinds.Phone.TYPE)
-				+ " = ? ";
-		String[] params = new String[] {
-				name,
-				ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE,
-				String.valueOf(ContactsContract.CommonDataKinds.Phone.TYPE_HOME) };
-
-		Cursor phoneCur = managedQuery(ContactsContract.Data.CONTENT_URI, null,
-				where, params, null);
-
-		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
-
-		if ((null == phoneCur)) {
-			createContact(name, phone, email);
-		} else {
-			ops.add(ContentProviderOperation
-					.newUpdate(ContactsContract.Data.CONTENT_URI)
-					.withSelection(where, params)
-					.withValue(ContactsContract.CommonDataKinds.Phone.DATA,
-							phone).build());
-		}
-
-		phoneCur.close();
-
-		try {
+        Cursor phoneCur = managedQuery(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, where, params, null);
+        
+        ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+        
+        if ( (null == phoneCur)  ) {
+        	createContact(name, phone, email);
+        	Toast.makeText(InfoContacts_Activity.this,
+					"Smart null", Toast.LENGTH_SHORT).show();
+        } else {
+        	ops.add(ContentProviderOperation.newUpdate(ContactsContract.Data.CONTENT_URI)
+        	        .withSelection(where, params)
+        	        .withValue(ContactsContract.CommonDataKinds.Phone.DATA, phone)
+        	        .build());
+        	Toast.makeText(InfoContacts_Activity.this,
+					"Smart null1", Toast.LENGTH_SHORT).show();
+        }
+        
+        phoneCur.close();
+        
+        try {
 			cr.applyBatch(ContactsContract.AUTHORITY, ops);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
@@ -434,10 +431,8 @@ public class InfoContacts_Activity extends Activity implements OnClickListener {
 			e.printStackTrace();
 		}
 
-		Toast.makeText(InfoContacts_Activity.this,
-				"Updated contacts complete!" + phone, Toast.LENGTH_SHORT)
-				.show();
-	}
+		Toast.makeText(InfoContacts_Activity.this, "Updated contacts complete!" + phone, Toast.LENGTH_SHORT).show();
+    }
 
 	private void deleteContactNomal(String name) {
 

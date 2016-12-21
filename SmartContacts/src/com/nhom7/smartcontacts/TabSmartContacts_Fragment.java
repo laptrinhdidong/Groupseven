@@ -179,7 +179,8 @@ public class TabSmartContacts_Fragment extends Fragment implements OnClickListen
 							writeToFile(statuslogin, context);
 							Password = "";
 							writePassToFile(Password, context);
-							reload();
+//							reload();
+							dialog.cancel();
 							checklogin();
 						}
 					}
